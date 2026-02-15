@@ -2,3 +2,10 @@ PyGithub
 beautifulsoup4
 lxml
 curl-cffi
+<<<<<<< HEAD
+=======
+PyGithub
+beautifulsoup4
+lxml
+curl-cffi
+>>>>>>> e415079 (Migrate to curl_cffi, fix for modern python)
