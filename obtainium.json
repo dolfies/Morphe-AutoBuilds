@@ -23,7 +23,7 @@
       "overrideSource": "HTML"
     },
     {
-      "id": "app.morphe.android.youtube.music",
+      "id": "app.morphe.android.apps.youtube.music",
       "url": "https://api.github.com/repos/dolfies/Morphe-AutoBuilds/releases/tags/latest",
       "author": "dolfies",
       "name": "YouTube Music",
