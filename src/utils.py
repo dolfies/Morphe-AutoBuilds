@@ -1,11 +1,18 @@
+import json
+import os
 import re
+import shutil
+import time
 import logging
+import zipfile
 from typing import List, Optional
+from github.GithubException import BadCredentialsException
 from src import gh
 from sys import exit
 import subprocess
 from pathlib import Path
-from urllib.parse import urlparse, unquote, parse_qs
+from urllib.parse import urlparse, unquote, parse_qs, quote
+from src import session
 
 def _parseparam(s):
     while s[:1] == ";":
@@ -54,8 +61,10 @@ def find_file(files: list[Path], prefix: str = None, suffix: str = None, contain
         if prefix and not file.name.startswith(prefix):
             matches = False
             
-        if suffix and not file.name.endswith(suffix):
-            matches = False
+        if suffix:
+            suff_tuple = tuple(suffix) if isinstance(suffix, (list, tuple)) else suffix
+            if not file.name.endswith(suff_tuple):
+                matches = False
             
         if contains and contains.lower() not in file.name.lower():
             matches = False
@@ -83,20 +92,32 @@ def find_file(files: list[Path], prefix: str = None, suffix: str = None, contain
     return None
 
 def find_apksigner() -> str | None:
-    sdk_root = Path("/usr/local/lib/android/sdk")
-    build_tools_dir = sdk_root / "build-tools"
+    on_path = shutil.which("apksigner")
+    if on_path:
+        return on_path
 
-    if not build_tools_dir.exists():
-        logging.error(f"No build-tools found at: {build_tools_dir}")
-        return None
+    sdk_roots = [
+        "/usr/local/lib/android/sdk",  # GitHub Actions runner default
+        os.environ.get("ANDROID_HOME"),
+        os.environ.get("ANDROID_SDK_ROOT"),
+    ]
 
-    versions = sorted(build_tools_dir.iterdir(), reverse=True)
-    for version_dir in versions:
-        apksigner_path = version_dir / "apksigner"
-        if apksigner_path.exists() and apksigner_path.is_file():
-            return str(apksigner_path)
+    for root in sdk_roots:
+        if not root:
+            continue
+        build_tools_dir = Path(root) / "build-tools"
+        if not build_tools_dir.exists():
+            continue
+        versions = sorted(build_tools_dir.iterdir(), reverse=True)
+        for version_dir in versions:
+            apksigner_path = version_dir / "apksigner"
+            if apksigner_path.exists() and apksigner_path.is_file():
+                return str(apksigner_path)
 
-    logging.error("No apksigner found in build-tools")
+    logging.error(
+        "No apksigner found. Install Android SDK build-tools and either put "
+        "apksigner on PATH or set ANDROID_HOME/ANDROID_SDK_ROOT."
+    )
     return None
 
 def run_process(
@@ -129,17 +150,21 @@ def run_process(
         process.stdout.close()
         return_code = process.wait()
 
+        output = ''.join(output_lines).strip() if capture else None
+
         if check and return_code != 0:
-            raise subprocess.CalledProcessError(return_code, command)
+            # Include captured output so callers can diagnose and optionally retry.
+            raise subprocess.CalledProcessError(return_code, command, output=output)
 
-        return ''.join(output_lines).strip() if capture else None
+        return output
 
-    except FileNotFoundError:
-        print(f"Command not found: {command[0]}", flush=True)
-        exit(1)
+    except FileNotFoundError as e:
+        # Let callers handle this (e.g., fallback to another tool).
+        raise e
     except Exception as e:
-        print(f"Error while running command: {e}", flush=True)
-        exit(1)
+        # Do not exit() here; callers (workflow) may want to retry with a different
+        # version/source or emit a clearer error message.
+        raise e
 
 def normalize_version(version: str) -> list[int]:
     parts = version.split('.')
@@ -172,13 +197,30 @@ def get_highest_version(versions: list[str]) -> str | None:
             highest_version = v
     return highest_version
 
-def get_supported_version(package_name: str, cli: str, patches: str) -> Optional[str]:
+def get_supported_versions(package_name: str, cli: str, patches: str) -> Optional[list[str]]:
+    """Return the app versions the patch bundle declares compatibility with.
+
+    Returns:
+        list[str]: specific compatible versions, highest first. The caller must
+            build one of these and must NOT fall back to the store's latest.
+        []: the CLI query succeeded but no specific versions were declared
+            (patches are version-agnostic); building latest is safe.
+        None: the CLI query itself failed, so patch compatibility is unknown.
+            The caller must NOT build; guessing latest risks shipping a build
+            with silently skipped patches.
+    """
     # Morphe CLI and ReVanced CLI have different list-versions syntax
     cli_name = Path(cli).name.lower()
     is_morphe_cli = 'morphe' in cli_name
     is_revanced_v6_or_newer = 'revanced-cli-6' in cli_name or 'revanced-cli-7' in cli_name or 'revanced-cli-8' in cli_name
 
     if is_morphe_cli:
+        # Morphe CLI docs officially describe `list-patches --with-packages --with-versions`
+        # (and the output tends to include more complete version information than
+        # `list-versions`, which may only show "most common" compatible versions).
+        #
+        # We still try `list-versions` first because it's lighter, but if it
+        # yields too little info we fall back to parsing `list-patches`.
         cmd = [
             'java', '-jar', cli,
             'list-versions',
@@ -201,6 +243,8 @@ def get_supported_version(package_name: str, cli: str, patches: str) -> Optional
             patches
         ]
 
+    # We want the raw output even if the CLI returns a non-zero exit code (bad
+    # args, missing patches, etc.) so we can decide what to do.
     output = run_process(cmd, capture=True, silent=True, check=False)
 
     if not output:
@@ -218,7 +262,7 @@ def get_supported_version(package_name: str, cli: str, patches: str) -> Optional
 
     if len(lines) <= 2:
         logging.warning("Output has no version lines")
-        return None
+        return []
 
     versions = []
     for line in lines[2:]:
@@ -237,12 +281,47 @@ def get_supported_version(package_name: str, cli: str, patches: str) -> Optional
                     version = f"{parts[0]} build {parts[2]}"
                 versions.append(version)
 
+    # If Morphe CLI only returned a tiny "most common" list (or nothing),
+    # attempt to derive a fuller candidate set from `list-patches`.
+    if is_morphe_cli and len(versions) <= 1:
+        try:
+            alt_cmd = [
+                "java", "-jar", cli,
+                "list-patches",
+                "--with-packages",
+                "--with-versions",
+                patches,
+            ]
+            alt_out = run_process(alt_cmd, capture=True, silent=True, check=False) or ""
+            derived: list[str] = []
+            for ln in alt_out.splitlines():
+                if package_name not in ln:
+                    continue
+                # Grab any versions mentioned on the same line as the package name.
+                for m in re.finditer(r"\d+(?:\.\d+)+(?:\(\d+\))?", ln):
+                    derived.append(m.group(0))
+            if derived:
+                versions.extend(derived)
+        except Exception:
+            pass
+
     if not versions:
         logging.warning("No supported versions found")
-        return None
+        return []
 
+    # Sort highest -> lowest.
+    versions = sorted(set(versions), key=normalize_version, reverse=True)
     logging.info(f"CLI parsed versions: {versions}")
-    return get_highest_version(versions)
+    return versions
+
+
+def get_supported_version(package_name: str, cli: str, patches: str) -> Optional[str]:
+    """Backwards compatible helper: returns the highest compatible version, if any.
+
+    Returns None when the CLI query fails OR when patches are version-agnostic.
+    """
+    versions = get_supported_versions(package_name, cli, patches)
+    return versions[0] if versions else None
 
 def extract_filename(response, fallback_url=None) -> str:
     cd = response.headers.get('content-disposition')
@@ -264,42 +343,214 @@ def extract_filename(response, fallback_url=None) -> str:
     path = urlparse(fallback_url or response.url).path
     return unquote(Path(path).name)
 
-def detect_github_release(user: str, repo: str, tag: str) -> dict:
-    repo_obj = gh.get_repo(f"{user}/{repo}")
-
-    if tag == "latest":
-        release = repo_obj.get_latest_release()
-        logging.info(f"Fetched latest release: {release.tag_name}")
-        return release.raw_data
-
-    if tag in ["", "dev", "prerelease"]:
-        releases = list(repo_obj.get_releases())
-        if not releases:
-            raise ValueError(f"No releases found for {user}/{repo}")
-
-        if tag == "":
-            release = max(releases, key=lambda x: x.created_at)
-        elif tag == "dev":
-            devs = [r for r in releases if 'dev' in r.tag_name.lower()]
-            if not devs:
-                raise ValueError(f"No dev release found for {user}/{repo}")
-            release = max(devs, key=lambda x: x.created_at)
-        else:
-            pres = [r for r in releases if r.prerelease]
-            if not pres:
-                raise ValueError(f"No prerelease found for {user}/{repo}")
-            release = max(pres, key=lambda x: x.created_at)
-
-        logging.info(f"Fetched release: {release.tag_name}")
-        return release.raw_data
-
+def gh_api_request(endpoint: str) -> dict:
+    """Make a GitHub API request using the 'gh' CLI as it handles tokens more robustly in Actions"""
+    env = os.environ.copy()
+    # Ensure GH_TOKEN is set for the gh cli
+    if "GITHUB_TOKEN" in env and "GH_TOKEN" not in env:
+        env["GH_TOKEN"] = env["GITHUB_TOKEN"]
+        
     try:
-        release = repo_obj.get_release(tag)
-        logging.info(f"Fetched release: {release.tag_name}")
-        return release.raw_data
+        result = subprocess.run(
+            ["gh", "api", endpoint],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True
+        )
+        return json.loads(result.stdout)
     except Exception as e:
-        logging.error(f"Error fetching release {tag} for {user}/{repo}: {e}")
+        logging.debug(f"gh api {endpoint} failed: {e}")
         raise
+
+
+def fetch_json(url: str, headers: dict | None = None) -> dict | list:
+    response = session.get(url, headers=headers or {})
+    response.raise_for_status()
+    return response.json()
+
+
+def normalize_source_entry(entry: dict) -> dict:
+    provider = (entry.get("provider") or "github").lower().strip()
+    tag = (entry.get("tag") or "latest").strip() or "latest"
+
+    if provider in ("github", "codeberg"):
+        user = (entry.get("user") or "").strip()
+        repo = (entry.get("repo") or "").strip()
+        if not user or not repo:
+            raise ValueError(f"{provider} source entries require user and repo")
+        return {
+            "provider": provider,
+            "tag": tag,
+            "user": user,
+            "repo": repo,
+            "identity": f"{user}/{repo}",
+        }
+
+    if provider == "gitlab":
+        project = (entry.get("project") or "").strip()
+        if not project:
+            raise ValueError("gitlab source entries require project")
+        return {
+            "provider": provider,
+            "tag": tag,
+            "project": project,
+            "identity": project,
+        }
+
+    raise ValueError(f"Unsupported source provider: {provider}")
+
+
+def normalize_release(tag_name: str, published_at: str, assets: list[dict]) -> dict:
+    return {
+        "tag_name": tag_name or "?",
+        "published_at": published_at or "?",
+        "assets": [
+            {
+                "name": asset.get("name", ""),
+                "browser_download_url": asset.get("browser_download_url")
+                or asset.get("direct_asset_url")
+                or asset.get("url", ""),
+            }
+            for asset in assets
+            if asset.get("name")
+        ],
+    }
+
+
+def detect_release(entry: dict) -> dict:
+    normalized = normalize_source_entry(entry)
+    provider = normalized["provider"]
+
+    if provider == "github":
+        release = detect_github_release(normalized["user"], normalized["repo"], normalized["tag"])
+        return normalize_release(
+            release.get("tag_name"),
+            release.get("published_at") or release.get("created_at"),
+            release.get("assets") or [],
+        )
+
+    if provider == "gitlab":
+        return detect_gitlab_release(normalized["project"], normalized["tag"])
+
+    if provider == "codeberg":
+        return detect_codeberg_release(normalized["user"], normalized["repo"], normalized["tag"])
+
+    raise ValueError(f"Unsupported source provider: {provider}")
+
+
+def detect_gitlab_release(project: str, tag: str) -> dict:
+    encoded = quote(project, safe="")
+    if tag == "latest":
+        data = fetch_json(f"https://gitlab.com/api/v4/projects/{encoded}/releases/permalink/latest")
+    elif tag in ("", "dev", "prerelease"):
+        releases = fetch_json(f"https://gitlab.com/api/v4/projects/{encoded}/releases")
+        if not isinstance(releases, list) or not releases:
+            raise ValueError(f"No releases found for GitLab project {project}")
+        data = releases[0]
+    else:
+        data = fetch_json(f"https://gitlab.com/api/v4/projects/{encoded}/releases/{quote(tag, safe='')}")
+
+    if not isinstance(data, dict):
+        raise ValueError(f"Unexpected GitLab release response shape for {project}/{tag}")
+    assets = (data.get("assets") or {}).get("links") or []
+    return normalize_release(data.get("tag_name"), data.get("released_at"), assets)
+
+
+def detect_codeberg_release(user: str, repo: str, tag: str) -> dict:
+    base = f"https://codeberg.org/api/v1/repos/{user}/{repo}/releases"
+    if tag == "latest":
+        data = fetch_json(f"{base}/latest")
+    elif tag in ("", "dev", "prerelease"):
+        releases = fetch_json(base)
+        if not isinstance(releases, list) or not releases:
+            raise ValueError(f"No releases found for Codeberg repo {user}/{repo}")
+        data = releases[0]
+    else:
+        data = fetch_json(f"{base}/tags/{quote(tag, safe='')}")
+
+    if not isinstance(data, dict):
+        raise ValueError(f"Unexpected Codeberg release response shape for {user}/{repo}/{tag}")
+    return normalize_release(data.get("tag_name"), data.get("published_at"), data.get("assets") or [])
+
+def detect_github_release(user: str, repo: str, tag: str) -> dict:
+    if tag == "latest":
+        release_lookup = "latest"
+    elif tag in ["", "dev", "prerelease"]:
+        release_lookup = tag or "most recent"
+    else:
+        release_lookup = tag
+
+    # Small sleep to avoid hammering the API and mitigate transient 401s
+    time.sleep(1)
+
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            # Prefer 'gh' CLI as it handles tokens more robustly in Actions environment
+            if attempt < 2 and shutil.which("gh"):
+                logging.info(f"Fetching release {tag} for {user}/{repo} (attempt {attempt + 1})...")
+                
+                if tag == "latest":
+                    data = gh_api_request(f"repos/{user}/{repo}/releases/latest")
+                    return data
+                elif tag in ["", "dev", "prerelease"]:
+                    data = gh_api_request(f"repos/{user}/{repo}/releases")
+                    if not isinstance(data, list):
+                        # Handle case where API might return a single object (unlikely for /releases)
+                        data = [data]
+                        
+                    if not data:
+                        raise ValueError(f"No releases found for {user}/{repo}")
+                    
+                    if tag == "":
+                        release = max(data, key=lambda x: x['created_at'])
+                    elif tag == "dev":
+                        devs = [r for r in data if 'dev' in r['tag_name'].lower()]
+                        if not devs:
+                            raise ValueError(f"No dev release found for {user}/{repo}")
+                        release = max(devs, key=lambda x: x['created_at'])
+                    else:
+                        pres = [r for r in data if r['prerelease']]
+                        if not pres:
+                            raise ValueError(f"No prerelease found for {user}/{repo}")
+                        release = max(pres, key=lambda x: x['created_at'])
+                    return release
+                else:
+                    data = gh_api_request(f"repos/{user}/{repo}/releases/tags/{tag}")
+                    return data
+            else:
+                # Fallback to PyGithub
+                logging.warning(f"Falling back to PyGithub for {user}/{repo}...")
+                repo_obj = gh.get_repo(f"{user}/{repo}")
+                if tag == "latest":
+                    release = repo_obj.get_latest_release()
+                    return release.raw_data
+                return repo_obj.get_release(tag).raw_data
+                    
+        except Exception as e:
+            if attempt < max_retries - 1:
+                wait_time = (attempt + 1) * 3
+                logging.warning(f"Attempt {attempt + 1} failed for {user}/{repo}: {e}. Retrying in {wait_time}s...")
+                time.sleep(wait_time)
+                continue
+            
+            # Special message for 401 on external repos
+            err_msg = str(e).lower()
+            if "401" in err_msg or "unauthorized" in err_msg or "bad credentials" in err_msg:
+                is_external = user.lower() not in (os.environ.get("GITHUB_REPOSITORY", "").lower())
+                if is_external:
+                    logging.error(
+                        "❌ 401 Unauthorized for external repository %s/%s. "
+                        "The default GITHUB_TOKEN in Actions cannot access private external repositories. "
+                        "If this repo is private, please use a Personal Access Token (PAT) with 'repo' scope "
+                        "stored as a secret (e.g., CUSTOM_GH_TOKEN) and update your workflow.",
+                        user, repo
+                    )
+                raise RuntimeError("Bad GitHub credentials for release lookup") from e
+            
+            logging.error(f"Error fetching release {tag} for {user}/{repo} after {max_retries} attempts: {e}")
+            raise
 
 def detect_source_type(cli_file: Path, patches_file: Path) -> str:
     """Detect if we're using Morphe or ReVanced based on downloaded files"""
@@ -308,3 +559,103 @@ def detect_source_type(cli_file: Path, patches_file: Path) -> str:
     elif cli_file and "revanced" in cli_file.name.lower() and patches_file and patches_file.suffix in [".jar", ".rvp"]:
         return "revanced"
     return "unknown"
+
+
+def strip_zip_entries(zip_path: Path, patterns: list[str]) -> None:
+    """Strip matching file patterns from a ZIP archive in a cross-platform way."""
+    if not zip_path or not zip_path.exists():
+        return
+
+    if shutil.which("zip"):
+        try:
+            run_process(["zip", "--delete", str(zip_path)] + patterns, silent=True, check=False)
+            return
+        except Exception:
+            pass
+
+    # Pure Python fallback using zipfile
+    temp_zip = zip_path.with_suffix(".tmp.zip")
+    try:
+        import fnmatch
+        modified = False
+        with zipfile.ZipFile(zip_path, 'r') as zin:
+            with zipfile.ZipFile(temp_zip, 'w', compression=zin.compression) as zout:
+                for item in zin.infolist():
+                    if any(fnmatch.fnmatch(item.filename, p) for p in patterns):
+                        modified = True
+                        continue
+                    zout.writestr(item, zin.read(item.filename))
+        if modified:
+            zip_path.unlink()
+            temp_zip.rename(zip_path)
+        else:
+            temp_zip.unlink(missing_ok=True)
+    except Exception as e:
+        logging.debug(f"Failed to strip zip entries: {e}")
+        if temp_zip.exists():
+            temp_zip.unlink(missing_ok=True)
+
+
+def check_apk_integrity(apk_path: Path) -> bool:
+    """Validate that APK is a valid uncorrupted zip archive."""
+    if not apk_path or not apk_path.exists() or apk_path.stat().st_size == 0:
+        return False
+    try:
+        if not zipfile.is_zipfile(apk_path):
+            return False
+        with zipfile.ZipFile(apk_path, 'r') as z:
+            bad_file = z.testzip()
+            if bad_file is not None:
+                return False
+        return True
+    except Exception:
+        return False
+
+
+BUNDLE_SUFFIXES = (".xapk", ".apks", ".apkm")
+
+
+def _is_bundle(path: Path) -> bool:
+    """Return True if the file is an APK bundle (XAPK/APKS/APKM or a zip
+    containing APK files). Bundle containers are not Android-signed; the
+    APK inside is."""
+    if not path or not path.exists():
+        return False
+    if path.suffix.lower() in BUNDLE_SUFFIXES:
+        return True
+    try:
+        if zipfile.is_zipfile(path):
+            with zipfile.ZipFile(path, "r") as z:
+                return any(n.lower().endswith(".apk") for n in z.namelist())
+    except Exception:
+        pass
+    return False
+
+
+def ensure_usable_apk(apk_path: Path, app_name: str, version: str) -> Path | None:
+    """Return ``apk_path`` if it is a usable download.
+
+    Follows the pattern of proven auto-builders (e.g. nikhilbadyal/docker-py-revanced):
+    only verify the file is a valid zip archive. Do NOT check Android signatures
+    here: bundle containers (XAPK/APKS/APKM) are not signed, and the patcher
+    itself reports truly unusable input. Signature pre-checks caused good
+    downloads to be discarded.
+
+    Bundle files pass through for the downstream APKEditor merge; standalone
+    APKs pass through for direct patching.
+    """
+    if not apk_path or not apk_path.exists() or apk_path.stat().st_size == 0:
+        logging.warning(f"Download missing or empty for {app_name}; discarding")
+        return None
+
+    if not check_apk_integrity(apk_path):
+        logging.warning(f"Download {apk_path.name} is not a valid zip; discarding")
+        apk_path.unlink(missing_ok=True)
+        return None
+
+    if _is_bundle(apk_path):
+        logging.info(f"Bundle {apk_path.name} passes zip integrity; leaving for APKEditor merge")
+    else:
+        logging.info(f"APK {apk_path.name} passes zip integrity check")
+
+    return apk_path

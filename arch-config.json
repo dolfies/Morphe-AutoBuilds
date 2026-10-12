@@ -16,8 +16,8 @@
   },
     {
     "app_name": "instagram",
-    "source": "piko-dev",
-    "arches": ["arm64-v8a", "armeabi-v7a"]
+    "source": "piko",
+    "arches": ["arm64-v8a"]
   },
   {
     "app_name": "phone",

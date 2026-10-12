@@ -18,7 +18,7 @@ def fix_apk(apk_path):
         ], check=True, capture_output=True)
         
         return "fixed.apk"
-    except:
+    except Exception:
         return None
 
 def main():
@@ -57,7 +57,7 @@ def main():
                 "--out", output_apk
             ], check=True)
             print(f"✅ Signed: {output_apk}")
-        except:
+        except Exception:
             print(f"❌ Failed to sign {input_apk}")
 
 if __name__ == "__main__":

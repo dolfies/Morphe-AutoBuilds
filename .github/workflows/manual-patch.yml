@@ -44,6 +44,13 @@ jobs:
   manual-patch:
     runs-on: ubuntu-latest
 
+    services:
+      flaresolverr:
+        image: ghcr.io/flaresolverr/flaresolverr:latest
+        ports:
+          - 8192:8191
+        options: --shm-size=1gb
+
     permissions:
       contents: write
 
@@ -91,15 +98,40 @@ jobs:
           pip install -r requirements.txt
           pip install requests beautifulsoup4
 
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+
+      - name: Wait for FlareSolverr
+        run: |
+          echo "Waiting for FlareSolverr to be ready..."
+          for i in $(seq 1 30); do
+            if curl -s http://localhost:8192/ > /dev/null 2>&1; then
+              echo "FlareSolverr is ready."
+              break
+            fi
+            echo "Waiting... ($i/30)"
+            sleep 5
+          done
+
       - name: Build APK
         env:
           APP_NAME: ${{ inputs.app_name }}
           SOURCE: ${{ inputs.source }}
           ARCH: ${{ inputs.architecture }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FLARESOLVERR_URL: http://localhost:8192/v1
         run: |
           echo "🔧 Building ${{ inputs.app_name }} with ${{ inputs.source }} for ${{ inputs.architecture }} architecture..."
           python -m src
+
+      - name: Normalize Asset Names
+        run: |
+          # GitHub rewrites names with spaces/parentheses on upload, which
+          # would desync the cleanup keep-list below.
+          python scripts/safe_asset_names.py --apks-dir .
 
       - name: Find Built APK
         id: find-apk
@@ -160,7 +192,7 @@ jobs:
           done
 
           cat > release_notes.md <<EOF
-          # ReVanced APKs
+          # Morphe APKs
 
           ## 📱 Available Apps
           EOF
@@ -185,14 +217,24 @@ jobs:
             echo "⬆️ Uploading new assets..."
             gh release upload latest *.apk --clobber
 
+            # Upload first, then delete superseded older-version APKs for this
+            # app/arch, so a failed upload never loses the old APK. No `||`
+            # fallback: a failed cleanup should fail the job loudly.
+            : > keep_apks.txt
+            for apk in *.apk; do
+              [ -f "$apk" ] || continue
+              echo "$apk" >> keep_apks.txt
+            done
+            python scripts/cleanup_old_apks.py --release latest --keep-file keep_apks.txt
+
             echo "📝 Updating release title and notes..."
             gh release edit latest \
-              --title "ReVanced APKs - $(date +'%Y-%m-%d %H:%M')" \
+              --title "Morphe APKs - $(date +'%Y-%m-%d %H:%M')" \
               --notes-file release_notes.md
           else
             echo "🚀 Creating new release..."
             gh release create latest \
-              --title "ReVanced APKs - $(date +'%Y-%m-%d %H:%M')" \
+              --title "Morphe APKs - $(date +'%Y-%m-%d %H:%M')" \
               --notes-file release_notes.md \
               *.apk \
               --latest

@@ -14,7 +14,7 @@ logging.basicConfig(
 )
 
 # Env Vars
-github_token = os.getenv('GITHUB_TOKEN')
+github_token = os.getenv('GITHUB_TOKEN') or os.getenv('GH_TOKEN')
 repository = os.getenv('GITHUB_REPOSITORY')
 endpoint_url = os.getenv('ENDPOINT_URL')
 access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
@@ -23,4 +23,13 @@ bucket_name = os.getenv('BUCKET_NAME')
 
 # APKmirror base url
 base_url = "https://www.apkmirror.com"
-gh = Github(github_token) if github_token else Github()
+
+if github_token:
+    logging.info("GitHub token detected; using authenticated GitHub API client")
+    gh = Github(github_token)
+else:
+    if os.getenv("CI"):
+        logging.warning("No GITHUB_TOKEN/GH_TOKEN detected in CI; GitHub release lookups may fail")
+    else:
+        logging.warning("No GitHub token detected; using anonymous GitHub API client")
+    gh = Github()

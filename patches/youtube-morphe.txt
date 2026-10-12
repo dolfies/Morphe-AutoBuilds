@@ -1,11 +1,11 @@
-- Alternative thumbnails
 - Bypass image region restrictions
 - Change form factor
 - Change header
 - Change start page
 - Custom branding
 - Custom player overlay opacity
-- Disable double tap action
+- DeArrow
+- Disable double tap actions
 - Disable haptic feedback
 - Disable rolling number animations
 - Disable video codecs
