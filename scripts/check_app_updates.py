@@ -26,6 +26,7 @@ import os
 import sys
 import re
 import json
+import hashlib
 import logging
 import importlib
 import subprocess
@@ -516,6 +517,25 @@ def get_source_signature(source: str) -> str:
     return sig
 
 
+def get_patch_selection_signature(app: str, source: str) -> str:
+    """Hash of patches/<app>-<source>.txt, the build's enable/disable list.
+
+    Folded into the entry's source signature so that changing which patches
+    are enabled or disabled rebuilds the app, through the same pending-sig
+    flow as a patch-source update. '' when the app has no selection file.
+    """
+    path = REPO_ROOT / "patches" / f"{app}-{source}.txt"
+    if not path.exists():
+        return ""
+    lines = sorted(
+        line.strip() for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip().startswith(("+", "-"))
+    )
+    if not lines:
+        return ""
+    return hashlib.sha256("\n".join(lines).encode("utf-8")).hexdigest()[:12]
+
+
 # ---------------------------------------------------------------------------
 # Recommended version: what the builder will actually ship
 # ---------------------------------------------------------------------------
@@ -845,6 +865,9 @@ def plan_incremental(full_matrix: List[dict], old_manifest: Optional[dict],
 
         cur_app_ver = load_app_config_version(app)            # '' if 'latest'
         cur_src_sig = get_source_signature(src)
+        patch_sel = get_patch_selection_signature(app, src)
+        if patch_sel:
+            cur_src_sig = f"{cur_src_sig}|patches:{patch_sel}"
         old = old_entries.get(mkey)
         old_src_sig = (old or {}).get("source_sig", "")
         if old and old_src_sig and _is_unreliable_source_sig(cur_src_sig):
