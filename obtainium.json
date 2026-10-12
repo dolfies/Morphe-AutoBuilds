@@ -100,7 +100,7 @@
       "overrideSource": "HTML"
     },
     {
-      "id": "com.instagram.barcelona",
+      "id": "com.instagram.barcelona.morphe",
       "url": "https://api.github.com/repos/dolfies/Morphe-AutoBuilds/releases/tags/latest",
       "author": "dolfies",
       "name": "Threads",
@@ -172,6 +172,94 @@
       "name": "Podcast Addict",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/podcast-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: hoo-dles/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
+      "categories": ["Morphe"],
+      "allowIdChange": true,
+      "overrideSource": "HTML"
+    },
+    {
+      "id": "com.reddit.frontpage",
+      "url": "https://api.github.com/repos/dolfies/Morphe-AutoBuilds/releases/tags/latest",
+      "author": "dolfies",
+      "name": "Reddit",
+      "preferredApkIndex": 0,
+      "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/reddit-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: MorpheApp/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
+      "categories": ["Morphe"],
+      "allowIdChange": true,
+      "overrideSource": "HTML"
+    },
+    {
+      "id": "com.instagram.android",
+      "url": "https://api.github.com/repos/dolfies/Morphe-AutoBuilds/releases/tags/latest",
+      "author": "dolfies",
+      "name": "Instagram",
+      "preferredApkIndex": 0,
+      "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/instagram-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: crimera/piko (auto-built)\",\"refreshBeforeDownload\":false}",
+      "categories": ["Morphe"],
+      "allowIdChange": true,
+      "overrideSource": "HTML"
+    },
+    {
+      "id": "com.sbs.diet",
+      "url": "https://api.github.com/repos/dolfies/Morphe-AutoBuilds/releases/tags/latest",
+      "author": "dolfies",
+      "name": "MacroFactor",
+      "preferredApkIndex": 0,
+      "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/macrofactor-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: hoo-dles/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
+      "categories": ["Morphe"],
+      "allowIdChange": true,
+      "overrideSource": "HTML"
+    },
+    {
+      "id": "com.sbs.train",
+      "url": "https://api.github.com/repos/dolfies/Morphe-AutoBuilds/releases/tags/latest",
+      "author": "dolfies",
+      "name": "MacroFactor Workouts",
+      "preferredApkIndex": 0,
+      "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/macrofactor-workout-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: hoo-dles/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
+      "categories": ["Morphe"],
+      "allowIdChange": true,
+      "overrideSource": "HTML"
+    },
+    {
+      "id": "cz.ackee.ventusky",
+      "url": "https://api.github.com/repos/dolfies/Morphe-AutoBuilds/releases/tags/latest",
+      "author": "dolfies",
+      "name": "Ventusky",
+      "preferredApkIndex": 0,
+      "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/ventusky-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: hoo-dles/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
+      "categories": ["Morphe"],
+      "allowIdChange": true,
+      "overrideSource": "HTML"
+    },
+    {
+      "id": "com.xodo.pdf.reader",
+      "url": "https://api.github.com/repos/dolfies/Morphe-AutoBuilds/releases/tags/latest",
+      "author": "dolfies",
+      "name": "Xodo",
+      "preferredApkIndex": 0,
+      "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/xodo-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: hoo-dles/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
+      "categories": ["Morphe"],
+      "allowIdChange": true,
+      "overrideSource": "HTML"
+    },
+    {
+      "id": "net.dinglisch.android.taskerm",
+      "url": "https://api.github.com/repos/dolfies/Morphe-AutoBuilds/releases/tags/latest",
+      "author": "dolfies",
+      "name": "Tasker",
+      "preferredApkIndex": 0,
+      "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/tasker-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: heval99/Heval-Morphe-Patches (auto-built)\",\"refreshBeforeDownload\":false}",
+      "categories": ["Morphe"],
+      "allowIdChange": true,
+      "overrideSource": "HTML"
+    },
+    {
+      "id": "com.twitter.android",
+      "url": "https://api.github.com/repos/dolfies/Morphe-AutoBuilds/releases/tags/latest",
+      "author": "dolfies",
+      "name": "X",
+      "preferredApkIndex": 0,
+      "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/x-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: crimera/piko (auto-built)\",\"refreshBeforeDownload\":false}",
       "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
