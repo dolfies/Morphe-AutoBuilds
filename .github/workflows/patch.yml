@@ -218,17 +218,20 @@ jobs:
           echo "Records produced:"
           ls -la build_records/ 2>/dev/null || echo "(no records)"
 
+      # Artifact names must include the arch: multi-arch apps (youtube-music)
+      # run one job per arch, and same-named artifacts collapse to one on
+      # download, silently dropping the other arch from the release.
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: apk-${{ matrix.app_name }}-${{ matrix.source }}
+          name: apk-${{ matrix.app_name }}-${{ matrix.source }}-${{ matrix.arch }}
           path: "*.apk"
 
       - name: Upload Build Records
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: build-records-${{ matrix.app_name }}-${{ matrix.source }}
+          name: build-records-${{ matrix.app_name }}-${{ matrix.source }}-${{ matrix.arch }}
           path: build_records/
           if-no-files-found: ignore
 
