@@ -7,7 +7,7 @@
       "name": "TikTok",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/tiktok-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: icysymmetra/tiktok-patches-for-morphe (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -18,7 +18,7 @@
       "name": "YouTube",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/youtube-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: MorpheApp/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -29,7 +29,7 @@
       "name": "YouTube Music",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/youtube-music-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: MorpheApp/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -40,7 +40,7 @@
       "name": "SoundCloud",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/soundcloud-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: hoo-dles/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -51,7 +51,7 @@
       "name": "Google Photos",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/google-photos-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: Akash-Sriram/morphe-google-photos (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -62,7 +62,7 @@
       "name": "Duolingo",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/duolingo-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: hoo-dles/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -73,7 +73,7 @@
       "name": "Messenger",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/messenger-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: SysAdminDoc/HushMessenger (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -84,7 +84,7 @@
       "name": "Prime Video",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/prime-video-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: hoo-dles/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -95,7 +95,7 @@
       "name": "Strava",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/strava-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: rushiranpise/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -106,7 +106,7 @@
       "name": "Threads",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/threads-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: durgesh0505/chiggi_morphe_patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -117,7 +117,7 @@
       "name": "Icon Pack Studio",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/icon-pack-studio-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[\\\\d.]*\\\\d)build(\\\\d+)\\\\.apk$\",\"matchGroupToUse\":\"$1 build $2\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: RookieEnough/De-Vanced (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -128,7 +128,7 @@
       "name": "Hevy",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/hevy-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: kveld9/kveld-morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -139,7 +139,7 @@
       "name": "TickTick",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/ticktick-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: Paresh-Maheshwari/paresh-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -150,7 +150,7 @@
       "name": "Letterboxd",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/letterboxd-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: kim20598/hakim-morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -161,7 +161,7 @@
       "name": "MyFitnessPal",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/myfitnesspal-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: hoo-dles/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     },
@@ -172,13 +172,13 @@
       "name": "Podcast Addict",
       "preferredApkIndex": 0,
       "additionalSettings": "{\"intermediateLink\":[],\"customLinkFilterRegex\":\"/releases/download/latest/podcast-(arm64-v8a|universal)-[^/]*\\\\.apk$\",\"filterByLinkText\":false,\"matchLinksOutsideATags\":false,\"skipSort\":false,\"reverseSort\":false,\"sortByLastLinkSegment\":false,\"versionExtractWholePage\":false,\"requestHeader\":[{\"requestHeader\":\"User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36\"}],\"defaultPseudoVersioningMethod\":\"partialAPKHash\",\"zippedApkFilterRegEx\":\"\",\"trackOnly\":false,\"versionExtractionRegEx\":\"-v(\\\\d+\\\\.[^/]*)\\\\.apk$\",\"matchGroupToUse\":\"$1\",\"versionDetection\":true,\"releaseDateAsVersion\":false,\"useVersionCodeAsOSVersion\":false,\"apkFilterRegEx\":\"\",\"invertAPKFilter\":false,\"autoApkFilterByArch\":true,\"appName\":\"\",\"appAuthor\":\"\",\"shizukuPretendToBeGooglePlay\":false,\"allowInsecure\":false,\"exemptFromBackgroundUpdates\":false,\"skipUpdateNotifications\":false,\"about\":\"Patches: hoo-dles/morphe-patches (auto-built)\",\"refreshBeforeDownload\":false}",
-      "categories": ["ReVanced"],
+      "categories": ["Morphe"],
       "allowIdChange": true,
       "overrideSource": "HTML"
     }
   ],
   "settings": {
-    "categories": "{\"ReVanced\":4294901760}",
+    "categories": "{\"Morphe\":4294901760}",
     "groupByCategory": true,
     "onlyCheckInstalledOrTrackOnlyApps": true
   }
